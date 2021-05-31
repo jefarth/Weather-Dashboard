@@ -1,8 +1,8 @@
 // Store the value of the user input in the search box
 var city = $(`#searchCity`).val();
 
-// Store the value of the API key !!!!!! Need to remove to hidden folder
-const apiKey = `&appid=4cacb3ab041418253b8abd5130a34093`;
+// Store the value of the API key
+
 
 // Sets variable to current date
 var date = new Date();
