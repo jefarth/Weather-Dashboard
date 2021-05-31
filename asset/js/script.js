@@ -2,7 +2,7 @@
 var city = $(`#searchCity`).val();
 
 // Store the value of the API key
-
+const apiKey = `&appid=4cacb3ab041418253b8abd5130a34093`;
 
 // Sets variable to current date
 var date = new Date();
