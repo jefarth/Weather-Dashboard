@@ -38,34 +38,48 @@
     THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
     WHEN I click on a city in the search history
     THEN I am again presented with current and future conditions for that city -->
-<section class="container-fluid">
-    <!-- Header -->
-     <header class="row text-center bg-primary text-light">
-         <h1>
-         Weather Dashboard
-        </h1>
-     </header>
 
-    <!-- Search bar -->
+     <!-- Jumbotron -->
+    <section class="container-fluid mb-4">
+        <header class="row text-center bg-primary text-light p-2">
+            <h1 class="col">
 
+                Weather Dashboard
+            </h1>
+        </header>
+    </section>
+    
+     <!-- Search bar -->
+    <section class="container-fluid">
+    <div class="row">
+        <aside class="col-4">
+            <h2>Search for a City:</h2>
+            <div class="input-group">
+                <div class="form-outline">
+                    <input type="search" id="form1" class="form-control bg-light" />
+                </div>
+                <button type="button" class="btn btn-primary">
+                    <i">Search</i>
+                </button>
+            </div>
+        </aside>
         
-    <!-- Create list of city names -->
+     <!-- Create list of city names -->
 
 
-    <!-- Use weather api -->
+     <!-- Use weather api -->
 
+    </div>
+    </section>
+  <!-- End of Page -->
 
-
-    <h3>Use F12 to Console Log for Weather API</h3>
-
-</section>
-    <!-- MDB -->
+     <!-- MDB -->
     <script
     type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"
     ></script>
 
-    <!-- My Javascript -->
+     <!-- My Javascript -->
     <script src="./asset/script.js"></script>
 </body>
 </html>
