@@ -2,7 +2,7 @@ body {
     background-color: skyblue;
     color: black;
 }
-/* Used for viewing rows for testing */
-/* .row {
-    border: solid gray;
-} */
+
+.hide {
+    display: none;
+}

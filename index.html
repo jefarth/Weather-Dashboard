@@ -39,43 +39,69 @@
     WHEN I click on a city in the search history
     THEN I am again presented with current and future conditions for that city -->
 
-     <!-- Jumbotron -->
+    <!-- Jumbotron -->
     <section class="container-fluid mb-4">
         <header class="row text-center bg-primary text-light p-2">
             <h1 class="col">
-
                 Weather Dashboard
             </h1>
         </header>
     </section>
     
-     <!-- Search bar -->
+
+
+    <!-- Creates Grid -->
     <section class="container-fluid">
     <div class="row">
+
+
+
+        <!-- Search bar -->        
         <aside class="col-4">
             <h2>Search for a City:</h2>
             <div class="input-group">
                 <div class="form-outline">
-                    <input type="search" id="form1" class="form-control bg-light" />
+                    <input type="search" id="searchCity" class="form-control bg-light" />
                 </div>
-                <button type="button" class="btn btn-primary">
-                    <i">Search</i>
+                <button type="button" id="searchBtn" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
                 </button>
             </div>
+            <hr>
+
+            <!-- List Search History  -->
+            <div class="card hide">
+                <ul class="list-city"></ul>
+            </div>
         </aside>
-        
-     <!-- Create list of city names -->
 
 
-     <!-- Use weather api -->
+    
+        <!-- Weather Info -->
+        <main class="col-8 hide">
+
+            <!-- Current Weather -->
+            <div class="row">
+                <div id="currentWeather" class="col-12">
+                </div>
+            </div>
+         
+
+            <!-- Weather Forecast -->
+            <div class="col-12"> 
+                <h5 id="forecastH5" class="mt-3">5-Day Forecast:</h5>
+                <div id="forecast" class="row">
+                </div> 
+            </div> 
+        </main>
 
     </div>
     </section>
-  <!-- End of Page -->
+    <!-- End of Page -->
 
 
-  
-        <!-- Script Links -->
+
+    <!-- Script Links -->
 
     <!-- jQuery -->
     <script 
