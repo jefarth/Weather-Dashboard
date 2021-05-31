@@ -8,6 +8,17 @@ const apiKey = `&appid=4cacb3ab041418253b8abd5130a34093`;
 var date = new Date();
 console.log(date);
 
+// Forces user input in search box to auto-capitalize first letter and lower case all following
+jQuery(document).ready(function($) {
+    $('#searchCity').keyup(function(event) {
+        let textBox = event.target;
+        let start = textBox.selectionStart;
+        let end = textBox.selectionEnd;
+        textBox.value = textBox.value.charAt(0).toUpperCase() + textBox.value.slice(1).toLowerCase();
+        textBox.setSelectionRange(start, end);
+    })
+});
+
 // Lets user click search button with ENTER key
 // When you press ENTER key within the City search bar
 $(`#searchCity`).keypress(function(event) {
