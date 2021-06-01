@@ -13,6 +13,7 @@ Build a weather dashboard application with search functionality to find current 
 
 [See what I can do](https://jefarth.github.io/Weather-Dashboard/)
 
+***
 ### Technologies Used
 * JavaScript
 * OpenWeather API
