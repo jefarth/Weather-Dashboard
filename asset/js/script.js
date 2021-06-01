@@ -1,19 +1,17 @@
 // Store the value of the user input in the search box
 var city = $(`#searchCity`).val();
-
 // Store the value of the API key
 const apiKey = `&appid=4cacb3ab041418253b8abd5130a34093`;
-
 // Sets variable to current date
-var date = new Date();
+const date = new Date();
 console.log(date);
 
 // Forces user input in search box to auto-capitalize first letter and lower case all following
 jQuery(document).ready(function($) {
     $('#searchCity').keyup(function(event) {
-        let textBox = event.target;
-        let start = textBox.selectionStart;
-        let end = textBox.selectionEnd;
+        const textBox = event.target;
+        const start = textBox.selectionStart;
+        const end = textBox.selectionEnd;
         textBox.value = textBox.value.charAt(0).toUpperCase() + textBox.value.slice(1).toLowerCase();
         textBox.setSelectionRange(start, end);
     })
@@ -57,7 +55,6 @@ $(`#searchBtn`).on(`click`, function() {
         console.log(response.name)
         // Icon for weather type
         console.log(response.weather[0].icon)
-
         // Get the temperature and convert to fahrenheit 
         let tempF = (response.main.temp - 273.15) * 1.80 + 32;
         // Temperature displayed rounded down
@@ -68,7 +65,7 @@ $(`#searchBtn`).on(`click`, function() {
         console.log(response.wind.speed)
     
         makeList();
-        // getCurrentConditions(response);
+        getCurrentConditions(response);
         // getCurrentForecast(response);
         
     
@@ -78,7 +75,37 @@ $(`#searchBtn`).on(`click`, function() {
 // Create City History
 function makeList() {
     // Create list elements with a bootstrap class and text of user entered city
-    let listCity = $(`<li>`).addClass(`list-group-item`).attr(`data-value`, city).text(city);
+    const listCity = $(`<li>`).addClass(`list-group-item`).attr(`data-value`, city).text(city);
     // Put the listCity content into any list-group class's
     $(`.list-group`).append(listCity);
-  }
+}
+
+function getCurrentConditions (response) {
+
+    // Get the temperature and convert to fahrenheit 
+    let tempF = (response.main.temp - 273.15) * 1.80 + 32;
+    tempF = Math.floor(tempF);
+
+    $('#currentWeather').empty();
+
+    // Get and set city weather in a card 
+    const card = $(`<div>`).addClass(`card`);
+    const cardBody = $(`<div>`).addClass(`card-body`);
+    let city = $(`<h4>`).addClass(`card-title`).text(response.name);
+    // Set the current date in card
+    const cityDate = $(`<h4>`).addClass(`card-title`).text(date.toLocaleDateString('en-US'));
+    // Set current temperature in fahrenheit
+    const temperature = $(`<p>`).addClass(`card-text current-temp`).text(`Temperature: ` + tempF + ` °F`);
+    // Set current humidity
+    const humidity = $(`<p>`).addClass(`card-text current-humidity`).text(`Humidity: ` + response.main.humidity + `%`);
+    // Set current wind speed
+    const wind = $(`<p>`).addClass(`card-text current-wind`).text(`Wind Speed: ` + response.wind.speed + ` MPH`);
+    // Set icon to match current weather
+    const image = $(`<img>`).attr(`src`, `https://openweathermap.org/img/w/` + response.weather[0].icon + `.png`)
+
+    // Add to page
+    city.append(cityDate, image)
+    cardBody.append(city, temperature, humidity, wind);
+    card.append(cardBody);
+    $(`#currentWeather`).append(card)
+}
