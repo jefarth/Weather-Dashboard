@@ -50,19 +50,19 @@ $(`#searchBtn`).on(`click`, function() {
     })
     .then(function (response){
         // All data API returned
-        console.log(response)
+        console.log(response);
         // Name of the City
-        console.log(response.name)
+        console.log(response.name);
         // Icon for weather type
-        console.log(response.weather[0].icon)
+        console.log(response.weather[0].icon);
         // Get the temperature and convert to fahrenheit 
         let tempF = (response.main.temp - 273.15) * 1.80 + 32;
         // Temperature logged in console rounded down
-        console.log(Math.floor(tempF))
+        console.log(Math.floor(tempF));
         // Humidity logged in console
-        console.log(response.main.humidity)
+        console.log(response.main.humidity);
         // Wind Speed logged in console
-        console.log(response.wind.speed)
+        console.log(response.wind.speed);
     
         makeList();
         getCurrentConditions(response);
@@ -78,9 +78,10 @@ function makeList() {
     const listCity = $(`<li>`).addClass(`list-group-item`).attr(`data-value`, city).text(city);
     // Put the listCity content into any list-group class's
     $(`.list-group`).append(listCity);
+    localStorage.setItem(`list`, listCity);
 }
 
-function getCurrentConditions (response) {
+function getCurrentConditions(response) {
 
     // Get the temperature and convert to fahrenheit 
     let tempF = (response.main.temp - 273.15) * 1.80 + 32;
@@ -101,13 +102,13 @@ function getCurrentConditions (response) {
     // Set current wind speed
     const wind = $(`<p>`).addClass(`card-text current-wind`).text(`Wind Speed: ` + response.wind.speed + ` MPH`);
     // Set icon to match current weather
-    const image = $(`<img>`).attr(`src`, `https://openweathermap.org/img/w/` + response.weather[0].icon + `.png`)
+    const image = $(`<img>`).attr(`src`, `https://openweathermap.org/img/w/` + response.weather[0].icon + `.png`);
 
     // Add to page
-    city.append(cityDate, image)
+    city.append(cityDate, image);
     cardBody.append(city, temperature, humidity, wind);
     card.append(cardBody);
-    $(`#currentWeather`).append(card)
+    $(`#currentWeather`).append(card);
 }
 
 function getForecast() {
@@ -118,13 +119,13 @@ function getForecast() {
       method: `GET`
     }).then(function (response){
         // All data API returned 
-        console.log(response)
-        console.log(response.dt)
+        console.log(response);
+        console.log(response.dt);
         $('#forecast').empty();
     
         // Variable to hold response.list
         let results = response.list;
-        console.log(results)
+        console.log(results);
         
         // Loop through the response.list
         for (let i = 0; i < results.length; i++) {
@@ -141,14 +142,14 @@ function getForecast() {
                 let tempF = Math.floor(temp);
                 // Creates cards to hold forecast
                 const card = $(`<div>`).addClass(`card col-md-2 ml-4 bg-primary text-white`);
-                const cardBody = $(`<div>`).addClass(`card-body p-3 forecastBody`)
+                const cardBody = $(`<div>`).addClass(`card-body p-3 forecastBody`);
                 const cityDate = $(`<h4>`).addClass(`card-title`).text(date.toLocaleDateString('en-US'));
                 // Set current temperature in fahrenheit
                 const temperature = $(`<p>`).addClass(`card-text forecastTemp`).text(`Temperature: ` + tempF + ` °F`);
                 // Set current humidity
                 const humidity = $(`<p>`).addClass(`card-text forecastHumidity`).text(`Humidity: ` + results[i].main.humidity + `%`);
                 // Set icon to match current weather
-                const image = $(`<img>`).attr(`src`, `https://openweathermap.org/img/w/` + results[i].weather[0].icon + `.png`)
+                const image = $(`<img>`).attr(`src`, `https://openweathermap.org/img/w/` + results[i].weather[0].icon + `.png`);
 
                 // Add to page
                 cardBody.append(cityDate, image, temperature, humidity);
