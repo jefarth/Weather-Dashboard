@@ -4,7 +4,6 @@ var city = $(`#searchCity`).val();
 const apiKey = `&appid=4cacb3ab041418253b8abd5130a34093`;
 // Sets variable to current date
 const date = new Date();
-console.log(date);
 
 // Forces user input in search box to auto-capitalize first letter and lower case all following
 jQuery(document).ready(function($) {
@@ -49,26 +48,9 @@ $(`#searchBtn`).on(`click`, function() {
         method: `GET`
     })
     .then(function (response){
-        // All data API returned
-        console.log(response);
-        // Name of the City
-        console.log(response.name);
-        // Icon for weather type
-        console.log(response.weather[0].icon);
-        // Get the temperature and convert to fahrenheit 
-        let tempF = (response.main.temp - 273.15) * 1.80 + 32;
-        // Temperature logged in console rounded down
-        console.log(Math.floor(tempF));
-        // Humidity logged in console
-        console.log(response.main.humidity);
-        // Wind Speed logged in console
-        console.log(response.wind.speed);
-    
         makeList();
         getCurrentConditions(response);
         getForecast(response);
-        
-    
       })
 });
   
@@ -118,44 +100,33 @@ function getForecast() {
       url: `https://api.openweathermap.org/data/2.5/forecast?q=` + city + apiKey,
       method: `GET`
     }).then(function (response){
-        // All data API returned 
-        console.log(response);
-        console.log(response.dt);
         $('#forecast').empty();
     
-        // Variable to hold response.list
         let results = response.list;
-        console.log(results);
         
         // Loop through the response.list
-        for (let i = 0; i < results.length; i++) {
+        for (let i = 0; i < 5; i++) {
             // Sets current date for each card
-            let day = Number(results[i].dt_txt.split('-')[2].split(' ')[0]);
-            let hour = results[i].dt_txt.split('-')[2].split(' ')[1];
-            // Current date logged in console
-            console.log(day);
-            console.log(hour);
-    
-            if(results[i].dt_txt.indexOf(`12:00:00`) !== -1){
-                // Get the temperature and convert to fahrenheit 
-                let temp = (results[i].main.temp - 273.15) * 1.80 + 32;
-                let tempF = Math.floor(temp);
-                // Creates cards to hold forecast
-                const card = $(`<div>`).addClass(`card col-md-2 ml-4 bg-primary text-white`);
-                const cardBody = $(`<div>`).addClass(`card-body p-3 forecastBody`);
-                const cityDate = $(`<h4>`).addClass(`card-title`).text(date.toLocaleDateString('en-US'));
-                // Set current temperature in fahrenheit
-                const temperature = $(`<p>`).addClass(`card-text forecastTemp`).text(`Temperature: ` + tempF + ` °F`);
-                // Set current humidity
-                const humidity = $(`<p>`).addClass(`card-text forecastHumidity`).text(`Humidity: ` + results[i].main.humidity + `%`);
-                // Set icon to match current weather
-                const image = $(`<img>`).attr(`src`, `https://openweathermap.org/img/w/` + results[i].weather[0].icon + `.png`);
+            let day = new Date(date.setDate(date.getDate() + 1));
+        
+            // Get the temperature and convert to fahrenheit 
+            let temp = (results[i].main.temp - 273.15) * 1.80 + 32;
+            let tempF = Math.floor(temp);
+            // Creates cards to hold forecast
+            const card = $(`<div>`).addClass(`card col-md-2 ml-4 bg-primary text-white`);
+            const cardBody = $(`<div>`).addClass(`card-body p-3 forecastBody`);
+            const cityDate = $(`<h4>`).addClass(`card-title`).text(day.toLocaleDateString('en-US'));
+            // Set current temperature in fahrenheit
+            const temperature = $(`<p>`).addClass(`card-text forecastTemp`).text(`Temperature: ` + tempF + ` °F`);
+            // Set current humidity
+            const humidity = $(`<p>`).addClass(`card-text forecastHumidity`).text(`Humidity: ` + results[i].main.humidity + `%`);
+            // Set icon to match current weather
+            const image = $(`<img>`).attr(`src`, `https://openweathermap.org/img/w/` + results[i].weather[0].icon + `.png`);
 
-                // Add to page
-                cardBody.append(cityDate, image, temperature, humidity);
-                card.append(cardBody);
-                $(`#forecast`).append(card);
-            }
+            // Add to page
+            cardBody.append(cityDate, image, temperature, humidity);
+            card.append(cardBody);
+            $(`#forecast`).append(card);
         }
     });
 }
